@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class login extends AppCompatActivity implements InicioSesionFragment.OnLoginListener , View.OnClickListener{
+public class login extends AppCompatActivity implements View.OnClickListener{
     //Atributos
     Button btnAcceder;
     Button btnRegistrar;
@@ -26,8 +26,6 @@ public class login extends AppCompatActivity implements InicioSesionFragment.OnL
 
         btnRegistrar = findViewById(R.id.btnRegistrar);
         btnRegistrar.setOnClickListener(this);
-
-
     }
     @Override
     public void onClick(View vista) {
@@ -39,7 +37,6 @@ public class login extends AppCompatActivity implements InicioSesionFragment.OnL
             FragmentTransaccIniciar.commit();
 
             Toast.makeText(this, "Boton Iniciar Sesion", Toast.LENGTH_SHORT).show();
-
         }else {
             Fragment FragmentIniciar = new RegistrarFragment();
             FragmentManager FragmentoManejadorIniciar = getSupportFragmentManager();
@@ -48,8 +45,6 @@ public class login extends AppCompatActivity implements InicioSesionFragment.OnL
             FragmentTransaccIniciar.commit();
 
             Toast.makeText(this, "Boton Registrar", Toast.LENGTH_SHORT).show();
-
         }
-
     }
 }
