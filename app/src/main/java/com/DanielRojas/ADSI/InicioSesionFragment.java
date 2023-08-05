@@ -1,6 +1,9 @@
 package com.DanielRojas.ADSI;
 
 import android.app.DownloadManager;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,6 +20,10 @@ import com.DanielRojas.ADSI.funciones.Funciones;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -69,9 +76,12 @@ public class InicioSesionFragment extends Fragment {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                             String respuesta=new String(responseBody);
-                            Log.e("respuesta",respuesta);
+                            try {
+                                iniciarSesion(statusCode,respuesta);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
-
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                             Toast.makeText(getContext(), ""+error.toString(), Toast.LENGTH_SHORT).show();
@@ -80,8 +90,34 @@ public class InicioSesionFragment extends Fragment {
                 }
             }
         });
-
+        btnCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Aqui lo que hacemos es remover el fragmento que se esta mostrando, como si volviese al inicio
+                getParentFragmentManager().beginTransaction().remove(InicioSesionFragment.this).commit();
+            }
+        });
         return view;
+    }
+    private void iniciarSesion(int statusCode, String r) throws JSONException {
+        JSONObject respuesta = new JSONObject(r);
+        try {
+            String vali = respuesta.getString("sessionid");
+
+            SharedPreferences session = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = session.edit();
+            editor.putString("session_id",vali);
+            editor.apply();
+            Toast.makeText(getContext(), "Se inicio sesión", Toast.LENGTH_SHORT).show();
+
+            // Se redirige al usuario despues de comprobar que el inicio de sesion fue exitoso
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+
+        }catch (JSONException e){
+            JSONArray errorArray=new JSONArray(respuesta.getString("error"));
+            Toast.makeText(getContext(), errorArray.get(0).toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
 
