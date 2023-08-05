@@ -44,6 +44,7 @@
                     android:layout_width="12dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="monospace"
                     android:text="USER NAME"
                     android:textAlignment="center"
                     android:textSize="20sp" />
@@ -66,15 +67,17 @@
                 android:id="@+id/floatingActionButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="350dp"
                 android:clickable="true"
-                app:srcCompat="@android:drawable/ic_menu_set_as"
-                android:layout_marginStart="350dp"/>
+                app:backgroundTint="#C60303"
+                app:srcCompat="@android:drawable/ic_menu_set_as" />
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="40px"
+                android:fontFamily="monospace"
                 android:text="Cargar archivo" />
 
             <TextView
@@ -82,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20px"
+                android:fontFamily="monospace"
                 android:text="JUE BRANCH"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -91,6 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30px"
+                android:fontFamily="monospace"
                 android:text="Bienvenido (Nombre de usuario), para empezar el proceso de filtracion solo carga el archivo. " />
 
         </LinearLayout>

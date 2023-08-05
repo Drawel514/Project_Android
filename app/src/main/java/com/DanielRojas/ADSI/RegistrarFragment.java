@@ -72,11 +72,12 @@ public class RegistrarFragment extends Fragment {
                     //Enviamos los datos ingresados al servidor
                     AsyncHttpClient httpCliente = new AsyncHttpClient();
                     RequestParams parametros = new RequestParams();
-                    parametros.put("action", "registro");
                     parametros.put("nombre", nombres);
                     parametros.put("email", correo);
                     parametros.put("contra", contraseña);
                     parametros.put("contraConfirm", confirmcontraseña);
+
+
                 }
             }
         });

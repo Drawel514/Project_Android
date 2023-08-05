@@ -17,8 +17,10 @@
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_margin="50px"
+            android:fontFamily="monospace"
             android:text="Iniciar Sesion"
             android:textAlignment="center"
+            android:textColorHint="#423939"
             android:textSize="34sp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -30,6 +32,7 @@
                 android:id="@+id/InNombreUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="monospace"
                 android:hint="Nombre de Usuario" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -42,8 +45,9 @@
                 android:id="@+id/InContraseña"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="monospace"
                 android:hint="Contraseña"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <LinearLayout
@@ -55,16 +59,18 @@
                 android:id="@+id/btnEnviar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_margin="20px"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
                 android:text="ENVIAR" />
 
             <Button
                 android:id="@+id/btnCancelar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_margin="20px"
+                android:layout_weight="1"
+                android:fontFamily="monospace"
                 android:text="CANCELAR" />
         </LinearLayout>
 
