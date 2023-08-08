@@ -1,9 +1,13 @@
 package com.DanielRojas.ADSI;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +15,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.DanielRojas.ADSI.funciones.Funciones;
 import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 
 public class RegistrarFragment extends Fragment {
@@ -77,11 +89,55 @@ public class RegistrarFragment extends Fragment {
                     parametros.put("contra", contraseña);
                     parametros.put("contraConfirm", confirmcontraseña);
 
+                    httpCliente.post(Funciones.urlRegistrarUsuario(), parametros, new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            String respuesta=new String(responseBody);
+                            Log.e("res",respuesta);
+                            try {
+                                registrarUsuario(statusCode,respuesta,container);
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                            Toast.makeText(getContext(), ""+error.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
                 }
             }
         });
-
+        btnCancelarR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Removemos el fragmento de igual manera como lo hicimos en el inicio de sesion
+                getParentFragmentManager().beginTransaction().remove(RegistrarFragment.this).commit();
+            }
+        });
         return view;
     }
+    private void registrarUsuario(int statusCode, String respuesta,ViewGroup container) throws JSONException{
+        if (statusCode>=200 && statusCode<=299){
+            JSONObject res=new JSONObject(respuesta);
+            try {
+                String resString=res.getString("respuesta");
+                JSONArray arrayRes= new JSONArray(resString);
+                if (arrayRes.get(0).toString().equals("usuario creado")){
+                    String correo=arrayRes.get(1).toString();
+                    Toast.makeText(getContext(), "Correo de activasion enviado ["+correo+"]", Toast.LENGTH_SHORT).show();
+                    //cargamos el fragmento de inicio de sesion
+                    Fragment FragmentIniciar = new InicioSesionFragment();
+                    FragmentManager FragmentoManejadorIniciar = getActivity().getSupportFragmentManager();
+                    FragmentTransaction FragmentTransaccIniciar = FragmentoManejadorIniciar.beginTransaction();
+                    FragmentTransaccIniciar.replace(container.getId(), FragmentIniciar);
+                    FragmentTransaccIniciar.commit();
+                }
+            }catch(JSONException e){
+                String error = res.getString("error");
+                Toast.makeText(getContext(), ""+error, Toast.LENGTH_SHORT).show();
+            }
+            }
+        }
 }

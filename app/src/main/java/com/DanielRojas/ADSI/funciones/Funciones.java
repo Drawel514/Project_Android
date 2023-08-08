@@ -5,4 +5,5 @@ public class Funciones {
     static public String urlIniciarSesion(){
         return urlApi+"iniciosesionapi/";
     }
+    static public String urlRegistrarUsuario(){return urlApi+"registrarusuarionapi/";}
 }
