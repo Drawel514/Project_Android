@@ -49,6 +49,8 @@ public class InicioSesionFragment extends Fragment {
         btnEnviar = view.findViewById(R.id.btnEnviar);
         btnCancelar = view.findViewById(R.id.btnCancelar);
 
+
+
         //Relacionamos los botones con el metodo
         btnEnviar.setOnClickListener(new View.OnClickListener() {
             @Override

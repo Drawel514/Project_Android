@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -43,6 +44,7 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         SharedPreferences session = getSharedPreferences("session",MODE_PRIVATE);
         String session_id = session.getString("session_id","");
         if (!session_id.isEmpty()){
+            Toast.makeText(this, "Verificando sesión...", Toast.LENGTH_SHORT).show();
             AsyncHttpClient httpCliente=new AsyncHttpClient();
             RequestParams parametros=  new RequestParams();
             parametros.put("action","verificariniciarsesion");
@@ -72,7 +74,8 @@ public class login extends AppCompatActivity implements View.OnClickListener{
         String validacion=respuesta.getString("validacion");
         if (validacion.equals("true")){
             //lo mando al inicio
-
+            Intent intento = new Intent(login.this,MainActivity.class);
+            startActivity(intento);
         }
         //Si el false no se retorna nada, queda en la misma vista
     }

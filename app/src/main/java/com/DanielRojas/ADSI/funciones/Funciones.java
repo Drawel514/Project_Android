@@ -6,4 +6,5 @@ public class Funciones {
         return urlApi+"iniciosesionapi/";
     }
     static public String urlRegistrarUsuario(){return urlApi+"registrarusuarionapi/";}
+    static public String urlDatosUsuario(){return urlApi+"datosusuarioapi/";}
 }
