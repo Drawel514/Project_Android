@@ -28,17 +28,25 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     //Atributos
     TextView NombreUsuario, MensajeInstruccion;
+    TextView ContenidoArchivo;
+
     FloatingActionButton btnFloatCerrarSesion;
     ImageView imagenUsuario;
+    Button btnCargarArchivo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Inicializamos las vistas
         NombreUsuario=findViewById(R.id.NombreUsuario);
         NombreUsuario.setText("Cargando...");
         imagenUsuario=findViewById(R.id.imagenUsuario);
         MensajeInstruccion=findViewById(R.id.MensajeInstruccion);
         btnFloatCerrarSesion=findViewById(R.id.btnFloatCerrarSesion);
+        btnCargarArchivo=findViewById(R.id.btnCargarArchivo);
+        ContenidoArchivo=findViewById(R.id.ContenidoArchivo);
+        
+
 
 
         AsyncHttpClient httpCliente=new AsyncHttpClient();
@@ -88,5 +96,6 @@ public class MainActivity extends AppCompatActivity {
                 finish(); // Cerramos la actividad actual
             }
         });
+
     }
 }
